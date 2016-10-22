@@ -35,16 +35,6 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zr-aS-oTj">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rL-Zk-Igo">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTc-3I-lVz">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,23 +48,19 @@
                         </subviews>
                         <color key="backgroundColor" red="0.165875881" green="0.703125" blue="0.40185792930000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="BJI-A0-TCc" firstAttribute="top" secondItem="Vfy-fw-5Mp" secondAttribute="bottom" constant="5" id="B93-y5-Cmj"/>
-                            <constraint firstItem="6zr-aS-oTj" firstAttribute="top" secondItem="BJI-A0-TCc" secondAttribute="bottom" constant="14" id="EmF-Lp-C0f"/>
-                            <constraint firstItem="Vfy-fw-5Mp" firstAttribute="trailing" secondItem="BJI-A0-TCc" secondAttribute="trailing" id="Hot-Tx-qhc"/>
-                            <constraint firstItem="6zr-aS-oTj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="IBs-nE-nrQ"/>
-                            <constraint firstItem="VVW-jh-RKa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Scr-Fc-bdh"/>
-                            <constraint firstItem="VVW-jh-RKa" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="TDC-Rw-4jU"/>
-                            <constraint firstItem="Eh4-Ff-RxY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="108" id="Uc7-dY-ZDl"/>
-                            <constraint firstItem="zTc-3I-lVz" firstAttribute="top" secondItem="Eh4-Ff-RxY" secondAttribute="bottom" constant="24" id="V7x-a1-wc6"/>
-                            <constraint firstItem="VVW-jh-RKa" firstAttribute="trailing" secondItem="Vfy-fw-5Mp" secondAttribute="trailing" id="Yzn-p8-7Oy"/>
-                            <constraint firstItem="VVW-jh-RKa" firstAttribute="leading" secondItem="Vfy-fw-5Mp" secondAttribute="leading" id="ZI5-om-uND"/>
-                            <constraint firstItem="zTc-3I-lVz" firstAttribute="centerX" secondItem="VVW-jh-RKa" secondAttribute="centerX" id="cpi-fQ-fCE"/>
-                            <constraint firstItem="6zr-aS-oTj" firstAttribute="baseline" secondItem="6rL-Zk-Igo" secondAttribute="baseline" id="ecy-m7-mSb"/>
-                            <constraint firstItem="Vfy-fw-5Mp" firstAttribute="top" secondItem="VVW-jh-RKa" secondAttribute="bottom" constant="3" id="ibL-BU-QIy"/>
-                            <constraint firstItem="6rL-Zk-Igo" firstAttribute="leading" secondItem="6zr-aS-oTj" secondAttribute="trailing" constant="8" symbolic="YES" id="ilC-Te-S6q"/>
-                            <constraint firstItem="VVW-jh-RKa" firstAttribute="top" secondItem="zTc-3I-lVz" secondAttribute="bottom" constant="12" id="jp4-Fy-qPA"/>
-                            <constraint firstItem="Eh4-Ff-RxY" firstAttribute="centerX" secondItem="zTc-3I-lVz" secondAttribute="centerX" id="m4X-bM-lQ5"/>
-                            <constraint firstItem="Vfy-fw-5Mp" firstAttribute="leading" secondItem="BJI-A0-TCc" secondAttribute="leading" id="wSD-nC-dvc"/>
+                            <constraint firstItem="Eh4-Ff-RxY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="105" id="35W-cr-yIR"/>
+                            <constraint firstItem="Eh4-Ff-RxY" firstAttribute="centerX" secondItem="zTc-3I-lVz" secondAttribute="centerX" id="3A0-y8-TZl"/>
+                            <constraint firstItem="Vfy-fw-5Mp" firstAttribute="leading" secondItem="BJI-A0-TCc" secondAttribute="leading" id="DS1-HQ-6dy"/>
+                            <constraint firstItem="BJI-A0-TCc" firstAttribute="top" secondItem="Vfy-fw-5Mp" secondAttribute="bottom" constant="5" id="IXC-hJ-hQx"/>
+                            <constraint firstItem="zTc-3I-lVz" firstAttribute="top" secondItem="Eh4-Ff-RxY" secondAttribute="bottom" constant="24" id="MIP-Mh-tIs"/>
+                            <constraint firstItem="VVW-jh-RKa" firstAttribute="leading" secondItem="Vfy-fw-5Mp" secondAttribute="leading" id="Mkx-Vp-kTM"/>
+                            <constraint firstItem="VVW-jh-RKa" firstAttribute="trailing" secondItem="Vfy-fw-5Mp" secondAttribute="trailing" id="Uur-mD-PaG"/>
+                            <constraint firstItem="Vfy-fw-5Mp" firstAttribute="top" secondItem="VVW-jh-RKa" secondAttribute="bottom" constant="3" id="VpF-D2-YwN"/>
+                            <constraint firstItem="VVW-jh-RKa" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ZZC-gw-eLy"/>
+                            <constraint firstItem="VVW-jh-RKa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fHO-Gh-aWD"/>
+                            <constraint firstItem="VVW-jh-RKa" firstAttribute="top" secondItem="zTc-3I-lVz" secondAttribute="bottom" constant="11" id="iyf-tl-exn"/>
+                            <constraint firstItem="Vfy-fw-5Mp" firstAttribute="trailing" secondItem="BJI-A0-TCc" secondAttribute="trailing" id="jGX-1X-h0T"/>
+                            <constraint firstItem="zTc-3I-lVz" firstAttribute="centerX" secondItem="VVW-jh-RKa" secondAttribute="centerX" id="jKP-X9-AiK"/>
                         </constraints>
                     </view>
                     <connections>
@@ -170,7 +156,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C9v-rE-Gll" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="bookmarks" id="KR8-rN-ZLV"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ZSd-3r-8Z8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZSd-3r-8Z8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -189,7 +175,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bev-Ns-x2g" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="mostViewed" id="Jrm-s5-oAP"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TPw-u9-Geo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TPw-u9-Geo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
