@@ -15,6 +15,9 @@
 		011620B71DBB81BC003EE7C0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620B61DBB81BC003EE7C0 /* MapViewController.swift */; };
 		011620B91DBB81E1003EE7C0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620B81DBB81E1003EE7C0 /* ListViewController.swift */; };
 		011620BE1DBB8369003EE7C0 /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620BD1DBB8369003EE7C0 /* GCD.swift */; };
+		011620C31DBB9A68003EE7C0 /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620C21DBB9A68003EE7C0 /* ParseConstants.swift */; };
+		011620C51DBB9FDF003EE7C0 /* ParseStudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620C41DBB9FDF003EE7C0 /* ParseStudentLocation.swift */; };
+		011620CA1DBBBC05003EE7C0 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620C91DBBBC05003EE7C0 /* ParseClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		011620B61DBB81BC003EE7C0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		011620B81DBB81E1003EE7C0 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		011620BD1DBB8369003EE7C0 /* GCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
+		011620C21DBB9A68003EE7C0 /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
+		011620C41DBB9FDF003EE7C0 /* ParseStudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseStudentLocation.swift; sourceTree = "<group>"; };
+		011620C91DBBBC05003EE7C0 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseClient.swift; path = ../ParseClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,21 +69,21 @@
 				011620A21DBB5B33003EE7C0 /* AppDelegate.swift */,
 				011620BD1DBB8369003EE7C0 /* GCD.swift */,
 				011620BF1DBB8455003EE7C0 /* Model */,
-				011620BA1DBB8248003EE7C0 /* Controllers */,
+				011620BA1DBB8248003EE7C0 /* Controller */,
 				011620BB1DBB825D003EE7C0 /* Assets */,
 				011620BC1DBB8285003EE7C0 /* Supporting Files */,
 			);
 			path = "On The Map";
 			sourceTree = "<group>";
 		};
-		011620BA1DBB8248003EE7C0 /* Controllers */ = {
+		011620BA1DBB8248003EE7C0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				011620A41DBB5B33003EE7C0 /* LoginViewController.swift */,
 				011620B61DBB81BC003EE7C0 /* MapViewController.swift */,
 				011620B81DBB81E1003EE7C0 /* ListViewController.swift */,
 			);
-			name = Controllers;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		011620BB1DBB825D003EE7C0 /* Assets */ = {
@@ -101,8 +107,35 @@
 		011620BF1DBB8455003EE7C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				011620C61DBBACD0003EE7C0 /* Clients */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		011620C61DBBACD0003EE7C0 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				011620C81DBBADDC003EE7C0 /* Udacity */,
+				011620C71DBBADD0003EE7C0 /* Parse */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		011620C71DBBADD0003EE7C0 /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				011620C91DBBBC05003EE7C0 /* ParseClient.swift */,
+				011620C21DBB9A68003EE7C0 /* ParseConstants.swift */,
+				011620C41DBB9FDF003EE7C0 /* ParseStudentLocation.swift */,
+			);
+			name = Parse;
+			sourceTree = "<group>";
+		};
+		011620C81DBBADDC003EE7C0 /* Udacity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Udacity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,10 +211,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				011620C51DBB9FDF003EE7C0 /* ParseStudentLocation.swift in Sources */,
 				011620BE1DBB8369003EE7C0 /* GCD.swift in Sources */,
+				011620C31DBB9A68003EE7C0 /* ParseConstants.swift in Sources */,
 				011620A51DBB5B33003EE7C0 /* LoginViewController.swift in Sources */,
 				011620B71DBB81BC003EE7C0 /* MapViewController.swift in Sources */,
 				011620B91DBB81E1003EE7C0 /* ListViewController.swift in Sources */,
+				011620CA1DBBBC05003EE7C0 /* ParseClient.swift in Sources */,
 				011620A31DBB5B33003EE7C0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
