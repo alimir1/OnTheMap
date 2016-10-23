@@ -18,6 +18,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextFild: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
+    let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    
     // MARK: Life Cycle
     
     override func viewDidLoad() {
@@ -30,13 +32,26 @@ class LoginViewController: UIViewController {
         if emailTextField.text!.isEmpty || passwordTextFild.text!.isEmpty {
             // do something here
         } else {
+            self.setUIEnabled(enabled: false)
+            
+            // start animating activity indicator
+            activityView.center = self.view.center
+            activityView.startAnimating()
+            self.view.addSubview(activityView)
+            
             UdacityClient.sharedInstance().postUdacitySession(username: emailTextField.text!, password: passwordTextFild.text!) {
                 (successfullyPostedUdacitySession, error) in
                 if successfullyPostedUdacitySession {
                     self.completeLogin()
                 } else {
-                    self.setUIEnabled(enabled: true)
                     print("There was an error: \(error)")
+                    
+                    self.setUIEnabled(enabled: true)
+                    
+                    // stop animating activity indicator
+                    self.view.addSubview(self.activityView)
+                    self.activityView.stopAnimating()
+                    self.activityView.removeFromSuperview()
                 }
             }
         }

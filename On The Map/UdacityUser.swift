@@ -6,6 +6,15 @@
 //  Copyright © 2016 com.AliMir. All rights reserved.
 //
 
-extension UdacityClient {
-    
+// MARK: - UdacityUser
+
+struct UdacityUser {
+    // MARK: Properties
+    let accountID: Int
+    let firstName: String
+    let lastName: String
+    let latitude: Double
+    let longitude: Double
+    let mapString: String
+    let mediaURL: String
 }
