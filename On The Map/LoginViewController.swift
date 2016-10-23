@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  On The Map
 //
-//  Created by Abidi on 10/22/16.
+//  Created by Ali Mir on 10/22/16.
 //  Copyright © 2016 com.AliMir. All rights reserved.
 //
 
@@ -31,29 +31,14 @@ class LoginViewController: UIViewController {
             // do something here
         } else {
             UdacityClient.sharedInstance().postUdacitySession(username: emailTextField.text!, password: passwordTextFild.text!) {
-                (sessionID, error) in
-                print("SessionID FOUND!!!: \(sessionID)")
-            }
-            
-            setUIEnabled(enabled: true)
-            
-//            completeLogin()
-            /*
-                Do the login steps here something like this:
-             
-             TMDBClient.sharedInstance().authenticateWithViewController(self) { 
-             (success, errorString) in
-                performUIUpdatesOnMain {
-                    if success {
-                     self.completeLogin()
-                    } else {
-                        self.displayError(errorString)
-                    }
+                (successfullyPostedUdacitySession, error) in
+                if successfullyPostedUdacitySession {
+                    self.completeLogin()
+                } else {
+                    self.setUIEnabled(enabled: true)
+                    print("There was an error: \(error)")
                 }
-             }
-             
-             
-            */
+            }
         }
     }
     

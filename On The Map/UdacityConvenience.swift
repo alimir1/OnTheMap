@@ -13,7 +13,7 @@ extension UdacityClient {
     // MARK: POST Convenience Methods
     
     // Use Udacity’s session method to get a session ID in order to authenticate Udacity API requests
-    func postUdacitySession(username: String, password: String, completionHandlerForPOSTSession: @escaping (_ sessionID: Int?, _ error: NSError?) -> Void) {
+    func postUdacitySession(username: String, password: String, completionHandlerForPOSTSession: @escaping (_ successfullyPostedUdacitySession: Bool, _ error: NSError?) -> Void) {
         
         // Specify method, parameters (if any), and HTTP body
         let method = Methods.AuthenticationSession
@@ -25,7 +25,7 @@ extension UdacityClient {
             
             func sendError(errorString: String) {
                 print(errorString)
-                completionHandlerForPOSTSession(nil, error)
+                completionHandlerForPOSTSession(false, error)
             }
             
             guard let results = results as? [String : AnyObject] else {
@@ -33,24 +33,21 @@ extension UdacityClient {
                 return
             }
             
-            /*
-             // user info
-             var userID: Int? = nil
-             
-             // authentication state
-             var isRegistered: Bool? = nil
-             var sessionID: String? = nil
-             var sessionExpiration: String? = nil
-            */
+            guard let session = results[JSONResponseKeys.Session] as? [String : AnyObject], let account = results[JSONResponseKeys.Account] as? [String : AnyObject] else {
+                sendError(errorString: "Could not get session or account info from JSON.")
+                return
+            }
             
-            if let session = results[JSONResponseKeys.Session] as? [String : AnyObject], let sessionID = session[JSONResponseKeys.SessionID] as? String, let sessionExpiration = session[JSONResponseKeys.SessionExpiration] as? String {
-                print("sessionID: \(sessionID)")
-                print("sessionExpiration: \(sessionExpiration)")
+            // retrieve data from JSON and assign it to the appropriate properties in this client
+            if let sessionID = session[JSONResponseKeys.SessionID] as? String, let sessionExpiration = session[JSONResponseKeys.SessionExpiration] as? String, let isRegistered = account[JSONResponseKeys.UserRegistered] as? Bool, let userID = account[JSONResponseKeys.Key] as? String {
+                self.sessionID = sessionID
+                self.sessionExpiration = sessionExpiration
+                self.isRegistered = isRegistered
+                self.userID = Int(userID)!
                 
-                
-//                completionHandlerForPOSTSession(Int(sessionID), nil)
+                completionHandlerForPOSTSession(true, nil)
             } else {
-                sendError(errorString: "Unable to get UserID from the JSON file")
+                sendError(errorString: "Error in getting sessionID, sessionExpiration, userID, or sessionExpiration")
             }
         }
     }

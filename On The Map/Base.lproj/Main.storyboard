@@ -31,7 +31,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mur-8l-r8s">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="5Hq-nE-6Ri"/>
+                                            <constraint firstAttribute="height" constant="30" id="5Hq-nE-6Ri"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,7 +40,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4g7-8k-DAa">
                                         <color key="backgroundColor" red="0.20297771889999999" green="0.88050147249999999" blue="0.5075938941" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="g2D-5L-gFi"/>
+                                            <constraint firstAttribute="height" constant="30" id="g2D-5L-gFi"/>
                                         </constraints>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -49,7 +49,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oMk-e4-fyB">
                                         <color key="backgroundColor" red="0.20297771889999999" green="0.88050147249999999" blue="0.5075938941" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="I4E-JD-noE"/>
+                                            <constraint firstAttribute="height" constant="30" id="I4E-JD-noE"/>
                                         </constraints>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -58,7 +58,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmV-84-ECV">
                                         <color key="backgroundColor" red="0.17188623765545263" green="0.74562905823324088" blue="0.4298422762690729" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="fdg-xY-pfj"/>
+                                            <constraint firstAttribute="height" constant="40" id="fdg-xY-pfj"/>
                                         </constraints>
                                         <state key="normal" title="Login">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,7 +67,7 @@
                                             <action selector="loginPressedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8HI-uR-jcl"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="debug area" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdR-dp-nUK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdR-dp-nUK">
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -155,7 +155,9 @@
                             <outlet property="delegate" destination="8K4-XN-GTh" id="SWg-2X-xhf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="On The Map" id="wcr-y7-y1d"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="wcr-y7-y1d">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="dfW-xK-JsR"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1O-5j-Bhg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

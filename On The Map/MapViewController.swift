@@ -2,7 +2,7 @@
 //  MapViewController.swift
 //  On The Map
 //
-//  Created by Abidi on 10/22/16.
+//  Created by Ali Mir on 10/22/16.
 //  Copyright © 2016 com.AliMir. All rights reserved.
 //
 

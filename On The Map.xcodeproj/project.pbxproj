@@ -21,6 +21,7 @@
 		011620CC1DBC73A1003EE7C0 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620CB1DBC73A1003EE7C0 /* UdacityClient.swift */; };
 		011620CE1DBC73B5003EE7C0 /* UdacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620CD1DBC73B5003EE7C0 /* UdacityConstants.swift */; };
 		011620D01DBC868E003EE7C0 /* UdacityConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620CF1DBC868E003EE7C0 /* UdacityConvenience.swift */; };
+		011620D21DBD05A9003EE7C0 /* UdacityUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620D11DBD05A9003EE7C0 /* UdacityUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		011620CB1DBC73A1003EE7C0 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		011620CD1DBC73B5003EE7C0 /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConstants.swift; sourceTree = "<group>"; };
 		011620CF1DBC868E003EE7C0 /* UdacityConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConvenience.swift; sourceTree = "<group>"; };
+		011620D11DBD05A9003EE7C0 /* UdacityUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				011620CF1DBC868E003EE7C0 /* UdacityConvenience.swift */,
 				011620CB1DBC73A1003EE7C0 /* UdacityClient.swift */,
 				011620CD1DBC73B5003EE7C0 /* UdacityConstants.swift */,
+				011620D11DBD05A9003EE7C0 /* UdacityUser.swift */,
 			);
 			name = Udacity;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				011620C31DBB9A68003EE7C0 /* ParseConstants.swift in Sources */,
 				011620A51DBB5B33003EE7C0 /* LoginViewController.swift in Sources */,
 				011620D01DBC868E003EE7C0 /* UdacityConvenience.swift in Sources */,
+				011620D21DBD05A9003EE7C0 /* UdacityUser.swift in Sources */,
 				011620B71DBB81BC003EE7C0 /* MapViewController.swift in Sources */,
 				011620B91DBB81E1003EE7C0 /* ListViewController.swift in Sources */,
 				011620CA1DBBBC05003EE7C0 /* ParseClient.swift in Sources */,
