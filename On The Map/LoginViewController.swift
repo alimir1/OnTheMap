@@ -30,19 +30,12 @@ class LoginViewController: UIViewController {
         if emailTextField.text!.isEmpty || passwordTextFild.text!.isEmpty {
             // do something here
         } else {
-            setUIEnabled(enabled: true)
-            
-            var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
-            request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-            request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-            let session = URLSession.shared
-            let task = session.dataTask(with: request) { data, response, error in
-                if error != nil { // Handle error...
-                    return
-                }
-                print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
+            UdacityClient.sharedInstance().postUdacitySession(username: emailTextField.text!, password: passwordTextFild.text!) {
+                (sessionID, error) in
+                print("SessionID FOUND!!!: \(sessionID)")
             }
-            task.resume()
+            
+            setUIEnabled(enabled: true)
             
 //            completeLogin()
             /*
@@ -52,7 +45,7 @@ class LoginViewController: UIViewController {
              (success, errorString) in
                 performUIUpdatesOnMain {
                     if success {
-                        self.completeLogin()
+                     self.completeLogin()
                     } else {
                         self.displayError(errorString)
                     }
