@@ -39,12 +39,24 @@ class LoginViewController: UIViewController {
             activityView.startAnimating()
             self.view.addSubview(activityView)
             
-            UdacityClient.sharedInstance().postUdacitySession(username: emailTextField.text!, password: passwordTextFild.text!) {
+            UdacityClient.sharedInstance().postUdacitySession(username: emailTextField!.text!, password: passwordTextFild!.text!) {
                 (successfullyPostedUdacitySession, error) in
                 if successfullyPostedUdacitySession {
-                    self.completeLogin()
+                    UdacityClient.sharedInstance().getUdacityPublicUserData() {
+                        (success, error) in
+                        if success == true {
+                            self.completeLogin()
+                            
+                            // stop animating activity indicator
+                            self.view.addSubview(self.activityView)
+                            self.activityView.stopAnimating()
+                            self.activityView.removeFromSuperview()
+                        } else {
+                            print("loginViewController: Could not get UdacityUser!")
+                        }
+                    }
                 } else {
-                    print("There was an error: \(error)")
+                    print("Error in posting session: \(error)")
                     
                     self.setUIEnabled(enabled: true)
                     
@@ -61,15 +73,10 @@ class LoginViewController: UIViewController {
     
     func completeLogin() {
         performUIUpdatesOnMain {
-            UdacityClient.sharedInstance().getUdacityPublicUserData() {
+            ParseClient.sharedInstance().getMultipleStudentLocations() {
                 (result, error) in
-                if let result = result {
-                    print("from loginViewController. FirstName: \(result.firstName), LastName: \(result.lastName), AccountID: \(result.accountID)")
-                } else {
-                    print("loginViewController: Could not get UdacityUser!")
-                }
+                print("started...")
             }
-            
             self.setUIEnabled(enabled: true)
             let controller = self.storyboard!.instantiateViewController(withIdentifier: "ManagerNavigationController") as! UITabBarController
             self.present(controller, animated: true, completion: nil)

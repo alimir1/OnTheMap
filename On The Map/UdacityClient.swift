@@ -15,7 +15,8 @@ class UdacityClient: NSObject {
     var session = URLSession.shared
     
     // user info
-    var userID: Int? = nil
+    var accountID: String? = nil
+    var udacityUser: UdacityUser? = nil
     
     // authentication state
     var isRegistered: Bool? = nil

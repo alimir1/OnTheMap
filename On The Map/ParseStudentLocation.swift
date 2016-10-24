@@ -46,38 +46,41 @@
 //Parse Type: Number
 //Example Value: -122.083851
 
-//Key: createdAt
-//Description: the date when the student location was created
-//Parse Type: Date
-//Example Value: Feb 25, 2015, 01:10
-
-//Key: updatedAt
-//Description: the date when the student location was last updated
-//Parse Type: Date
-//Example Value: Mar 09, 2015, 23:34
-
-//Key: ACL
-//Description: the Parse access and control list (ACL), i.e. permissions, for this StudentLocation entry
-//Parse Type: ACL
-//Example Value: Public Read and Write
-
 import Foundation
 
 struct StudentLocation {
-    
     // MARK: Properties
     let objectID: String
-    let uniqueID: String
+    let uniqueKey: String
     let firstName: String
     let lastName: String
-    let locationName: String
+    let mapString: String
     let latitude: Double
     let longitude: Double
     let mediaURL: String
-    let createdAt: Date
-    let updatedAt: Date
-    let acl: AnyObject
     
+    // construct a TMDBMovie from a dictionary
+    init(dictionary: [String : AnyObject]) {
+        self.objectID = dictionary[ParseClient.JSONResponseKeys.StudentObjectID] as! String
+        self.uniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as!  String
+        self.firstName = dictionary[ParseClient.JSONResponseKeys.StudentFirstName] as! String
+        self.lastName = dictionary[ParseClient.JSONResponseKeys.StudentLastName] as! String
+        self.mapString = dictionary[ParseClient.JSONResponseKeys.StudentMapString] as! String
+        self.latitude = dictionary[ParseClient.JSONResponseKeys.StudentLatitude] as! Double
+        self.longitude = dictionary[ParseClient.JSONResponseKeys.StudentLongitude] as! Double
+        self.mediaURL = dictionary[ParseClient.JSONResponseKeys.StudentMediaURL] as! String
+    }
+    
+    static func studentLocationsFromResults(results: [[String : AnyObject]]) -> [StudentLocation] {
+        var students = [StudentLocation]()
+
+        // iterate through array of dictionaries, each StudentLocation is a dictionary
+        for result in results {
+            students.append(StudentLocation(dictionary: result))
+        }
+        
+        return students
+    }
 }
 
 

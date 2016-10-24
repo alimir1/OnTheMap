@@ -14,27 +14,29 @@ extension UdacityClient {
     
     // MARK: GET Convenience Methods
     
-    func getUdacityPublicUserData(completionHandlerForUserData: @escaping (_ result: UdacityUser?, _ error: Error?) -> Void) {
+    // get udacity's public user data to get user's first name and last name
+    func getUdacityPublicUserData(completionHandlerForUserData: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         
         // Specify method (if has {key})
         var method: String = Methods.UserID
-        method = substituteKeyInMethod(method: method, key: UdacityClient.URLKeys.UserID, value: String(UdacityClient.sharedInstance().userID!))!
+        method = substituteKeyInMethod(method: method, key: UdacityClient.URLKeys.UserID, value: String(UdacityClient.sharedInstance().accountID!))!
         
         // Make the request
         _ = taskForGETMethod(method: method) {
             (results, error) in
             /* Send the desired value(s) to completion handler */
             if let error = error {
-                completionHandlerForUserData(nil, error)
+                completionHandlerForUserData(false, error)
             } else {
                 if let results = results as? [String : AnyObject], let user = results[JSONResponseKeys.User] as? [String : AnyObject]{
                     let firstName = user[JSONResponseKeys.FirstName]! as! String
                     let lastName = user[JSONResponseKeys.LastName]! as! String
-                    let accountID = self.userID!
+                    let accountID = self.accountID!
                     let udacityUser = UdacityUser(firstName: firstName, lastName: lastName, accountID: accountID)
-                    completionHandlerForUserData(udacityUser, nil)
+                    self.udacityUser = udacityUser
+                    completionHandlerForUserData(true, nil)
                 } else {
-                    completionHandlerForUserData(nil, NSError(domain: "getUdacityPublicUserData parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getUdacityPublicUserData"]))
+                    completionHandlerForUserData(false, NSError(domain: "getUdacityPublicUserData parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse data getUdacityPublicUserData"]))
                 }
             }
         }
@@ -69,11 +71,11 @@ extension UdacityClient {
             }
             
             // retrieve data from JSON and assign it to the appropriate properties in this client
-            if let sessionID = session[JSONResponseKeys.SessionID] as? String, let sessionExpiration = session[JSONResponseKeys.SessionExpiration] as? String, let isRegistered = account[JSONResponseKeys.UserRegistered] as? Bool, let userID = account[JSONResponseKeys.Key] as? String {
+            if let sessionID = session[JSONResponseKeys.SessionID] as? String, let sessionExpiration = session[JSONResponseKeys.SessionExpiration] as? String, let isRegistered = account[JSONResponseKeys.UserRegistered] as? Bool, let accountID = account[JSONResponseKeys.Key] as? String {
                 self.sessionID = sessionID
                 self.sessionExpiration = sessionExpiration
                 self.isRegistered = isRegistered
-                self.userID = Int(userID)!
+                self.accountID = accountID
                 
                 completionHandlerForPOSTSession(true, nil)
             } else {

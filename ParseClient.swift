@@ -12,13 +12,12 @@ class ParseClient: NSObject {
     
     // MARK: Properties
     
-    // Shared session
+    // shared session
     var session = URLSession.shared
     
-    // Authentication state
-    var requestToken: String? = nil
-    var sessionID: String? = nil
-    var userID: Int? = nil
+    // parse student info.
+    var studentLocations = [StudentLocation]()
+    var uniqueKey: String? = UdacityClient.sharedInstance().accountID
     
     override init() {
         super.init()
@@ -26,13 +25,14 @@ class ParseClient: NSObject {
     
     // MARK: GET
     
-    func taskForGetMethod(method: String, parameters: [String : AnyObject], completionHandlerForGet: @escaping (_ result : AnyObject?, _ error : Error?) -> Void) -> URLSessionDataTask {
-        
-        // Set the parameters
-        var parameters = parameters
+    func taskForGetMethod(parameters: [String : AnyObject]?, completionHandlerForGet: @escaping (_ result : AnyObject?, _ error : Error?) -> Void) -> URLSessionDataTask {
         
         // Build the URL, configure the request
-        var request = URLRequest(url: ParseURLFromParameters(parameters: parameters))
+        var request = URLRequest(url: ParseURL(parameters: parameters))
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        
+        print("requestURL in taskForGetMethod: \(request)")
         
         // Make the request
         let task = session.dataTask(with: request) {
@@ -50,7 +50,7 @@ class ParseClient: NSObject {
             }
             
             guard  let statusCode = (response as? HTTPURLResponse)?.statusCode, 200...299 ~= statusCode else {
-                sendError(error: "Your request returned a status code other than 2xx!")
+                sendError(error: "Your request returned a status code other than 2xx! RequestUR: \(request)")
                 return
             }
             
@@ -85,15 +85,18 @@ class ParseClient: NSObject {
     }
     
     // create a URL from parameters
-    func ParseURLFromParameters(parameters: [String : AnyObject]) -> URL {
+    func ParseURL(parameters: [String : AnyObject]?) -> URL {
         var components = URLComponents()
         components.scheme = ParseClient.Costants.ApiScheme
         components.host = ParseClient.Costants.ApiHost
-        components.queryItems = [URLQueryItem]()
+        components.path = ParseClient.Costants.ApiPath
         
-        for (key, value) in parameters {
-            let queryItem = URLQueryItem(name: key, value: "\(value)")
-            components.queryItems?.append(queryItem)
+        if let parameters = parameters {
+            components.queryItems = [URLQueryItem]()
+            for (key, value) in parameters {
+                let queryItem = URLQueryItem(name: key, value: "\(value)")
+                components.queryItems?.append(queryItem)
+            }
         }
         
         return components.url!

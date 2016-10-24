@@ -10,11 +10,11 @@
 
 struct UdacityUser {
     // MARK: Properties
-    let accountID: Int
+    let accountID: String
     let firstName: String
     let lastName: String
     
-    init (firstName: String, lastName: String, accountID: Int) {
+    init (firstName: String, lastName: String, accountID: String) {
         self.accountID = accountID
         self.firstName = firstName
         self.lastName = lastName

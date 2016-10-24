@@ -11,8 +11,8 @@ extension ParseClient {
     
     struct Costants {
         // MARK: API Key
-        static let ApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
-        static let ApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let ParseApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+        static let RestApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         
         // MARK: URLs
         static let ApiScheme = "https"
@@ -20,6 +20,19 @@ extension ParseClient {
         static let ApiPath = "/parse/classes/StudentLocation"
     }
     
+    // MARK: Methods
+    struct Methods {
+        
+        // MARK: Student
+        static let StudentID = "/{objectId}"
+    }
+    
+    // MARK: URL Keys
+    struct URLKeys {
+        static let ObjectID = "objectId"
+    }
+    
+    // MARK: Parameters
     struct ParameterKeys {
         static let Order = "order"
         static let Skip = "skip"
@@ -28,16 +41,10 @@ extension ParseClient {
     }
     
     struct JSONResponseKeys {
-
-        // MARK: Account
-        static let AccountisRegistered = "registered"
-        static let AccontKey = "key"
+        // MARK: General
+        static let Results = "results"
         
-        // MARK: Authorization
-        static let SessionID = "id"
-        static let SessionExpirationDateAndTime = "expiration"
-        
-        // MARK: Students
+        // MARK: Student Location
         static let StudentFirstName = "firstName"
         static let StudentLastName = "lastName"
         static let StudentMediaURL = "mediaURL"
@@ -45,9 +52,7 @@ extension ParseClient {
         static let StudentUniqueKey = "uniqueKey"
         static let StudentLatitude = "latitude"
         static let StudentLongitude = "longitude"
-        static let StudentLocationName = "mapString"
-        static let StudentCreationDateAndTime = "createdAt"
-        static let StudentUpdateTimeAndTime = "updatedAt"
+        static let StudentMapString = "mapString"
     }
     
 }
