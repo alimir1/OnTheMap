@@ -11,10 +11,6 @@ extension UdacityClient {
     // MARK: Constants
     struct Costants {
         
-        // MARK: API Key
-        static let ApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
-        static let ApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
-        
         // MARK: URLs
         static let ApiScheme = "https"
         static let ApiHost = "www.udacity.com"
@@ -29,6 +25,12 @@ extension UdacityClient {
         
         // MARK: Authentication
         static let AuthenticationSession = "/session"
+    }
+    
+    
+    // MARK: URL Keys
+    struct URLKeys {
+        static let UserID = "user_id"
     }
     
     // MARK: JSON Response Keys

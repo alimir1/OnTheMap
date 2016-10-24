@@ -30,7 +30,54 @@ class UdacityClient: NSObject {
     
     // MARK: GET
     
-    
+    func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+
+        /* Build the URL, Configure the request */
+        let request = URLRequest(url: UdacityURL(withPathExtension: method))
+        
+        print("request url: \(request)")
+        
+        /* Make the request */
+        let task = session.dataTask(with: request) {
+            (data, response, error) in
+            
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
+            
+            /* GUARD: Was there an error? */
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            /* GUARD: Did we get a successful 2XX response? */
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode , 200...299 ~= statusCode  else {
+                sendError(error: "Your request returned a status code other than 2xx!")
+                return
+            }
+            
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                sendError(error: "No data was returned by the request!")
+                return
+            }
+            
+            /* Don't include first 5 characters in data (those characters are for Udacity security purposes) */
+            let range = Range(uncheckedBounds: (lower: 5, upper: data.count))
+            let newData = data.subdata(in: range) /* subset response data! */
+            
+            /* Parse the data and use the data (happens in completion handler) */
+            self.convertDataWithCompletionHandler(data: newData, completionHandlerForConvertData: completionHandlerForGET)
+        }
+        
+        /* Start the request */
+        task.resume()
+        
+        return task
+    }
     
     // MARK: POST
     

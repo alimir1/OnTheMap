@@ -8,7 +8,42 @@
 
 import Foundation
 
+// MARK: - UdacityClient (Convenient Resource Methods)
+
 extension UdacityClient {
+    
+    // MARK: GET Convenience Methods
+    
+    func getUdacityPublicUserData(completionHandlerForUserData: @escaping (_ result: AnyObject?, _ error: Error?) -> Void) {
+        
+        // Specify method (if has {key})
+        var method: String = Methods.UserID
+        method = substituteKeyInMethod(method: method, key: UdacityClient.URLKeys.UserID, value: String(UdacityClient.sharedInstance().userID!))!
+        
+        // Make the request
+        _ = taskForGETMethod(method: method) {
+            (results, error) in
+            /* Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandlerForUserData(nil, error)
+            } else {
+                if let results = results {
+                    completionHandlerForUserData(results, nil)
+                } else {
+                    completionHandlerForUserData(nil, NSError(domain: "getUdacityPublicUserData parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getUdacityPublicUserData"]))
+                }
+                
+//                if let results = results[TMDBClient.JSONResponseKeys.MovieResults] as? [[String:AnyObject]] {
+//                    
+//                    let movies = TMDBMovie.moviesFromResults(results)
+//                    completionHandlerForFavMovies(result: movies, error: nil)
+//                } else {
+//                    completionHandlerForFavMovies(result: nil, error: NSError(domain: "getFavoriteMovies parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getFavoriteMovies"]))
+//                }
+            }
+        }
+
+    }
     
     // MARK: POST Convenience Methods
     

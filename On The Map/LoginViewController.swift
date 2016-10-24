@@ -61,6 +61,12 @@ class LoginViewController: UIViewController {
     
     func completeLogin() {
         performUIUpdatesOnMain {
+            
+            UdacityClient.sharedInstance().getUdacityPublicUserData() {
+                (result, error) in
+                print("from loginViewController. Results: \(result)")
+            }
+            
             self.setUIEnabled(enabled: true)
             let controller = self.storyboard!.instantiateViewController(withIdentifier: "ManagerNavigationController") as! UITabBarController
             self.present(controller, animated: true, completion: nil)
