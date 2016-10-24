@@ -61,10 +61,13 @@ class LoginViewController: UIViewController {
     
     func completeLogin() {
         performUIUpdatesOnMain {
-            
             UdacityClient.sharedInstance().getUdacityPublicUserData() {
                 (result, error) in
-                print("from loginViewController. Results: \(result)")
+                if let result = result {
+                    print("from loginViewController. FirstName: \(result.firstName), LastName: \(result.lastName), AccountID: \(result.accountID)")
+                } else {
+                    print("loginViewController: Could not get UdacityUser!")
+                }
             }
             
             self.setUIEnabled(enabled: true)

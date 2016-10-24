@@ -39,12 +39,15 @@ extension UdacityClient {
         // MARK: Authorization
         static let Account = "account"
         static let Session = "session"
-        
-        // MARK: User
         static let UserRegistered = "registered"
         static let Key = "key"
         static let SessionID = "id"
         static let SessionExpiration = "expiration"
+        
+        // MARK: Udacity Student
+        static let User = "user"
+        static let FirstName = "first_name"
+        static let LastName = "last_name"
     }
     
     // MARK: JSON Body Keys

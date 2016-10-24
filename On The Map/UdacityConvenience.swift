@@ -14,7 +14,7 @@ extension UdacityClient {
     
     // MARK: GET Convenience Methods
     
-    func getUdacityPublicUserData(completionHandlerForUserData: @escaping (_ result: AnyObject?, _ error: Error?) -> Void) {
+    func getUdacityPublicUserData(completionHandlerForUserData: @escaping (_ result: UdacityUser?, _ error: Error?) -> Void) {
         
         // Specify method (if has {key})
         var method: String = Methods.UserID
@@ -27,22 +27,17 @@ extension UdacityClient {
             if let error = error {
                 completionHandlerForUserData(nil, error)
             } else {
-                if let results = results {
-                    completionHandlerForUserData(results, nil)
+                if let results = results as? [String : AnyObject], let user = results[JSONResponseKeys.User] as? [String : AnyObject]{
+                    let firstName = user[JSONResponseKeys.FirstName]! as! String
+                    let lastName = user[JSONResponseKeys.LastName]! as! String
+                    let accountID = self.userID!
+                    let udacityUser = UdacityUser(firstName: firstName, lastName: lastName, accountID: accountID)
+                    completionHandlerForUserData(udacityUser, nil)
                 } else {
                     completionHandlerForUserData(nil, NSError(domain: "getUdacityPublicUserData parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getUdacityPublicUserData"]))
                 }
-                
-//                if let results = results[TMDBClient.JSONResponseKeys.MovieResults] as? [[String:AnyObject]] {
-//                    
-//                    let movies = TMDBMovie.moviesFromResults(results)
-//                    completionHandlerForFavMovies(result: movies, error: nil)
-//                } else {
-//                    completionHandlerForFavMovies(result: nil, error: NSError(domain: "getFavoriteMovies parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getFavoriteMovies"]))
-//                }
             }
         }
-
     }
     
     // MARK: POST Convenience Methods

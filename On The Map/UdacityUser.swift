@@ -13,8 +13,10 @@ struct UdacityUser {
     let accountID: Int
     let firstName: String
     let lastName: String
-    let latitude: Double
-    let longitude: Double
-    let mapString: String
-    let mediaURL: String
+    
+    init (firstName: String, lastName: String, accountID: Int) {
+        self.accountID = accountID
+        self.firstName = firstName
+        self.lastName = lastName
+    }
 }
