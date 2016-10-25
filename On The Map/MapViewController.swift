@@ -49,7 +49,7 @@ extension MapViewController: MKMapViewDelegate {
         
         return pinView
     }
-    
+     
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
