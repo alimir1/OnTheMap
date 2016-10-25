@@ -128,6 +128,7 @@
 		011620C61DBBACD0003EE7C0 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				011620C41DBB9FDF003EE7C0 /* StudentInformation.swift */,
 				011620C81DBBADDC003EE7C0 /* Udacity */,
 				011620C71DBBADD0003EE7C0 /* Parse */,
 			);
@@ -140,7 +141,6 @@
 				011620D31DBDB594003EE7C0 /* ParseConvenience.swift */,
 				011620C91DBBBC05003EE7C0 /* ParseClient.swift */,
 				011620C21DBB9A68003EE7C0 /* ParseConstants.swift */,
-				011620C41DBB9FDF003EE7C0 /* StudentInformation.swift */,
 			);
 			name = Parse;
 			sourceTree = "<group>";

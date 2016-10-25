@@ -54,9 +54,10 @@ extension ListViewController {
     }
 }
 
+// MARK: Helper methods
+
 extension ListViewController {
-    // MARK: Helper methods
-    
+
     func getUdacityStudents() {
         // start animating activity indicator
         ActivityIndicatorView.startAnimatingActivityIndicator(activityView: self.activityView, controller: self, style: .gray)
@@ -64,8 +65,8 @@ extension ListViewController {
             (success, error) in
             if success {
                 let parsedStudents = ParseClient.sharedInstance().studentInformations
-                self.udacityStudents = parsedStudents
                 performUIUpdatesOnMain {
+                    self.udacityStudents = parsedStudents
                     self.tableView.reloadData()
                 }
             } else {

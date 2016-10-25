@@ -19,7 +19,7 @@ struct StudentInformation {
     let longitude: Double
     let mediaURL: String
     
-    // construct a TMDBMovie from a dictionary
+    // construct a StudentInformation from a dictionary
     init(dictionary: [String : AnyObject]) {
         self.objectID = dictionary[ParseClient.JSONResponseKeys.StudentObjectID] as! String
         self.uniqueKey = dictionary[ParseClient.JSONResponseKeys.StudentUniqueKey] as!  String
