@@ -18,14 +18,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextFild: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
-    let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    let activityView = UIActivityIndicatorView()
     
-    // MARK: Life Cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+
     // MARK: Actions
     
     @IBAction func loginPressed(sender: AnyObject) {
@@ -35,36 +30,27 @@ class LoginViewController: UIViewController {
             self.setUIEnabled(enabled: false)
             
             // start animating activity indicator
-            activityView.center = self.view.center
-            activityView.startAnimating()
-            self.view.addSubview(activityView)
+            ActivityIndicatorView.startAnimatingActivityIndicator(activityView: activityView, controller: self, style: .whiteLarge)
             
             UdacityClient.sharedInstance().postUdacitySession(username: emailTextField!.text!, password: passwordTextFild!.text!) {
                 (successfullyPostedUdacitySession, error) in
                 if successfullyPostedUdacitySession {
                     UdacityClient.sharedInstance().getUdacityPublicUserData() {
                         (success, error) in
-                        if success == true {
-                            self.completeLogin()
-                            
-                            // stop animating activity indicator
-                            self.view.addSubview(self.activityView)
-                            self.activityView.stopAnimating()
-                            self.activityView.removeFromSuperview()
-                        } else {
-                            print("loginViewController: Could not get UdacityUser!")
+                        performUIUpdatesOnMain {
+                            if success == true {
+                                self.completeLogin()
+                            } else {
+                                print("loginViewController: Could not get UdacityUser!")
+                            }
                         }
                     }
                 } else {
                     print("Error in posting session: \(error)")
-                    
                     self.setUIEnabled(enabled: true)
-                    
-                    // stop animating activity indicator
-                    self.view.addSubview(self.activityView)
-                    self.activityView.stopAnimating()
-                    self.activityView.removeFromSuperview()
                 }
+                // stop animating activity indicator
+                ActivityIndicatorView.stopAnimatingActivityIndicator(activityView: self.activityView,controller: self)
             }
         }
     }
@@ -72,15 +58,8 @@ class LoginViewController: UIViewController {
     // MARK: Login
     
     func completeLogin() {
-        performUIUpdatesOnMain {
-            ParseClient.sharedInstance().getMultipleStudentLocations() {
-                (result, error) in
-                print("started...")
-            }
-            self.setUIEnabled(enabled: true)
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: "ManagerNavigationController") as! UITabBarController
-            self.present(controller, animated: true, completion: nil)
-        }
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "ManagerNavigationController") as! UITabBarController
+        self.present(controller, animated: true, completion: nil)
     }
     
 }

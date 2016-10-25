@@ -22,7 +22,6 @@ extension ParseClient {
     
     // MARK: Methods
     struct Methods {
-        
         // MARK: Student
         static let StudentID = "/{objectId}"
     }
@@ -38,6 +37,7 @@ extension ParseClient {
         static let Skip = "skip"
         static let Limit = "limit"
         static let Where = "where"
+        static let UpdatedAt = "updatedAt"
     }
     
     struct JSONResponseKeys {

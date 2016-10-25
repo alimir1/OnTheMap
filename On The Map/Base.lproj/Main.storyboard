@@ -135,18 +135,34 @@
         <!--On The Map-->
         <scene sceneID="DF3-r9-ZdK">
             <objects>
-                <tableViewController id="8K4-XN-GTh" sceneMemberID="viewController">
+                <tableViewController id="8K4-XN-GTh" customClass="ListViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="XmC-RZ-AyO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6hg-Jx-lok">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="udacityStudentCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="udacityStudentCell" textLabel="PWq-V5-BuY" detailTextLabel="iQ7-nr-ux6" style="IBUITableViewCellStyleSubtitle" id="6hg-Jx-lok">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6hg-Jx-lok" id="HGe-mm-0aH">
                                     <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PWq-V5-BuY">
+                                            <frame key="frameInset" minX="15" minY="4" width="34" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iQ7-nr-ux6">
+                                            <frame key="frameInset" minX="15" minY="25" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -156,8 +172,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="On The Map" id="wcr-y7-y1d">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="dfW-xK-JsR"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="dfW-xK-JsR">
+                            <connections>
+                                <action selector="refreshWithSender:" destination="8K4-XN-GTh" id="6En-EN-e8e"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="refreshButton" destination="dfW-xK-JsR" id="e5k-aX-IAd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1O-5j-Bhg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
