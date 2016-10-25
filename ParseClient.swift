@@ -17,6 +17,7 @@ class ParseClient: NSObject {
     
     // parse student info.
     var studentInformations = [StudentInformation]()
+    var userStudentInformation: StudentInformation!
     var uniqueKey: String? = UdacityClient.sharedInstance().accountID
     
     override init() {

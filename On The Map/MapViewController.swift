@@ -21,7 +21,16 @@ class MapViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchUserInformations()
+        
+        let parsedStudents = ParseClient.sharedInstance().studentInformations
+        
+        if parsedStudents.count < 1 {
+            fetchUserInformations()
+        } else {
+            performUIUpdatesOnMain {
+                self.udacityStudents = parsedStudents
+            }
+        }
     }
     
     // MARK: - Actions

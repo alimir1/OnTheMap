@@ -20,7 +20,17 @@ class ListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUdacityStudents()
+        
+        let parsedStudents = ParseClient.sharedInstance().studentInformations
+        
+        if parsedStudents.count < 1 {
+            getUdacityStudents()
+        } else {
+            performUIUpdatesOnMain {
+                self.udacityStudents = parsedStudents
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,8 +74,8 @@ extension ListViewController {
         ParseClient.sharedInstance().getMultipleStudentLocations() {
             (success, error) in
             if success {
-                let parsedStudents = ParseClient.sharedInstance().studentInformations
                 performUIUpdatesOnMain {
+                    let parsedStudents = ParseClient.sharedInstance().studentInformations
                     self.udacityStudents = parsedStudents
                     self.tableView.reloadData()
                 }
