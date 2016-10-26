@@ -15,7 +15,7 @@ GitHub: https://github.com/alimir1/OnTheMap
 ---
 
 ## About this app
-An app with a map that shows information posted by other students. The map will contain pins that show the location where other students have reported studying. By tapping on the pin users can see a URL for something the student finds interesting. The user will be able to add their own data by posting a string that can be geocoded to a location, and a URL. This project will give Udacity students an opportunity to post and retrieve data from a network resource using Apple’s networking framework.
+An app with a map that shows information posted by other students. The map contains pins that show the location where other students have reported studying. By tapping on the pin users can see a URL for something the student finds interesting. Users are able to add their own data by posting a string that can be geocoded to a location, and a URL. Udacity students have an opportunity to post and retrieve data from a network resource using Apple’s networking framework.
 
 ## How to use this app
 You will need to register for a Udacity account. Visit http://udacity.com/ to register for an account.
