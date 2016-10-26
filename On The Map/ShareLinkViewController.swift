@@ -22,6 +22,7 @@ class ShareLinkViewController: UIViewController {
     var defaultTextFieldText = "Enter a Link to Share Here"
     var isBeingOverwritten: Bool!
     var successfullyPosted: Bool = false
+    var activityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         submitButton.isEnabled = false
@@ -60,7 +61,14 @@ extension ShareLinkViewController {
         let parseSharedInstance = ParseClient.sharedInstance()
         let student = StudentInformation(objectID: nil, uniqueKey: udacitySharedInstance.accountID!, firstName: (udacitySharedInstance.udacityUser?.firstName)!, lastName: (udacitySharedInstance.udacityUser?.lastName)!, mapString: self.mapString, latitude: self.coordinate.latitude, longitude: self.coordinate.longitude, mediaURL: self.enterLinkTextField.text!)
         
+        // start animating activity indicator
+        ActivityIndicatorView.startAnimatingActivityIndicator(activityView: self.activityIndicatorView, controller: self, style: .whiteLarge)
+        
         parseSharedInstance.postStudentLocation(isBeingOverwritten: isBeingOverwritten, student: student) { (success, objectID, error) in
+            
+            // stop animating activity indicator
+            ActivityIndicatorView.stopAnimatingActivityIndicator(activityView: self.activityIndicatorView, controller: self)
+            
             if success {
                 print("Successfully posted!")
                 self.successfullyPosted = true

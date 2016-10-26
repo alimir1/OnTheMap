@@ -37,7 +37,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4g7-8k-DAa">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4g7-8k-DAa">
                                         <color key="backgroundColor" red="0.20297771889999999" green="0.88050147249999999" blue="0.5075938941" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="g2D-5L-gFi"/>
@@ -46,7 +46,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oMk-e4-fyB">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oMk-e4-fyB">
                                         <color key="backgroundColor" red="0.20297771889999999" green="0.88050147249999999" blue="0.5075938941" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="I4E-JD-noE"/>
@@ -218,7 +218,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3m3-J1-7nb">
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YMB-hf-iYF">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YMB-hf-iYF">
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -444,13 +444,13 @@
             </objects>
             <point key="canvasLocation" x="2777" y="472"/>
         </scene>
-        <!--Item-->
+        <!--Map-->
         <scene sceneID="GEm-CV-v4z">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="n3k-zM-Y4T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="qIy-8r-JLt"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="Geo" id="qIy-8r-JLt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DIj-UA-CbY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DIj-UA-CbY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -463,13 +463,13 @@
             </objects>
             <point key="canvasLocation" x="1848" y="-290"/>
         </scene>
-        <!--Item-->
+        <!--List-->
         <scene sceneID="c2i-eu-dsA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zMg-QI-WYF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7ad-dJ-aS7"/>
+                    <tabBarItem key="tabBarItem" title="List" image="List" id="7ad-dJ-aS7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="KT9-1w-YIB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KT9-1w-YIB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -483,4 +483,8 @@
             <point key="canvasLocation" x="1848" y="471"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Geo" width="33" height="33"/>
+        <image name="List" width="34" height="34"/>
+    </resources>
 </document>

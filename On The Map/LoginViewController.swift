@@ -34,6 +34,13 @@ class LoginViewController: UIViewController {
             
             UdacityClient.sharedInstance().postUdacitySession(username: emailTextField!.text!, password: passwordTextFild!.text!) {
                 (successfullyPostedUdacitySession, error) in
+                
+                
+                // stop animating activity indicator
+                ActivityIndicatorView.stopAnimatingActivityIndicator(activityView: self.activityView,controller: self)
+                self.passwordTextFild.text = ""
+                self.setUIEnabled(enabled: true)
+                
                 if successfullyPostedUdacitySession {
                     UdacityClient.sharedInstance().getUdacityPublicUserData() {
                         (success, error) in
@@ -47,10 +54,7 @@ class LoginViewController: UIViewController {
                     }
                 } else {
                     print("Error in posting session: \(error)")
-                    self.setUIEnabled(enabled: true)
                 }
-                // stop animating activity indicator
-                ActivityIndicatorView.stopAnimatingActivityIndicator(activityView: self.activityView,controller: self)
             }
         }
     }

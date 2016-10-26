@@ -17,6 +17,7 @@ class MapViewController: UIViewController{
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     
     var udacityStudents = [StudentInformation]()
+    let activityView = UIActivityIndicatorView()
     
     // MARK: - Life Cycle
     
@@ -37,6 +38,7 @@ class MapViewController: UIViewController{
     }
     
     // MARK: - Actions
+    
     @IBAction func refreshMap(sender: AnyObject?) {
         performUIUpdatesOnMain {
             self.fetchUserInformations()
@@ -44,11 +46,24 @@ class MapViewController: UIViewController{
     }
     
     @IBAction func logoutFromUdacity(sender: AnyObject?) {
+        
+        // start animating activity indicator
+        ActivityIndicatorView.startAnimatingActivityIndicator(activityView: self.activityView, controller: self, style: .whiteLarge)
+        
         UdacityClient.sharedInstance().deleteUdacitySession() { (success, result, error) in
+            
+            // stop animating activity indicator
+            ActivityIndicatorView.stopAnimatingActivityIndicator(activityView: self.activityView, controller: self)
+            
             guard (success == true) else {
                 self.presentAlertView(title: "Unable to Logout", message: error?.localizedDescription, actions: [UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)])
-                self.dismiss(animated: true, completion: nil)
                 return
+            }
+            
+            if let result = result, result.count > 0 {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.presentAlertView(title: "Unable to Logout", message: "Please check your internet connection and try again.", actions: [UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)])
             }
         }
     }

@@ -18,7 +18,7 @@ class FindLocationViewController: UIViewController {
     @IBOutlet weak var findOnMapButton: UIButton!
     
     let defaultMapStringTextField = "Enter Your Location Here"
-    var activityIndicatorView: UIActivityIndicatorView!
+    var activityIndicatorView = UIActivityIndicatorView()
     var isBeingOverwritten: Bool!
     
     override func viewDidLoad() {
@@ -34,7 +34,15 @@ class FindLocationViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func findLocation(sender: AnyObject? = nil) {
+        
+        // start animating activity indicator
+        ActivityIndicatorView.startAnimatingActivityIndicator(activityView: self.activityIndicatorView, controller: self, style: .whiteLarge)
+        
         getCoordinateOfMapString(address: mapStringTextField.text!) { (coordinate, error) in
+            
+            // stop animating activity indicator
+            ActivityIndicatorView.stopAnimatingActivityIndicator(activityView: self.activityIndicatorView, controller: self)
+            
             func presentError(error: String) {
                 let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
