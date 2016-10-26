@@ -22,8 +22,7 @@ extension ParseClient {
     
     // MARK: Methods
     struct Methods {
-        // MARK: Student
-        static let StudentID = "/{objectId}"
+        static let ObjectID = "/{objectId}"
     }
     
     // MARK: URL Keys

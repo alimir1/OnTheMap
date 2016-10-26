@@ -25,6 +25,7 @@
 		011620D41DBDB594003EE7C0 /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011620D31DBDB594003EE7C0 /* ParseConvenience.swift */; };
 		011ADDD71DBF177E00D2359B /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011ADDD61DBF177E00D2359B /* ActivityIndicatorView.swift */; };
 		011ADDE11DBF9F0800D2359B /* FindLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011ADDE01DBF9F0800D2359B /* FindLocationViewController.swift */; };
+		0154D5C51DC04E4C0085211B /* ShareLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0154D5C41DC04E4C0085211B /* ShareLinkViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		011ADDDD1DBF962F00D2359B /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		011ADDDE1DBF962F00D2359B /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		011ADDE01DBF9F0800D2359B /* FindLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindLocationViewController.swift; sourceTree = "<group>"; };
+		0154D5C41DC04E4C0085211B /* ShareLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareLinkViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +100,10 @@
 			isa = PBXGroup;
 			children = (
 				011620A41DBB5B33003EE7C0 /* LoginViewController.swift */,
-				011ADDE01DBF9F0800D2359B /* FindLocationViewController.swift */,
 				011620B61DBB81BC003EE7C0 /* MapViewController.swift */,
 				011620B81DBB81E1003EE7C0 /* ListViewController.swift */,
+				011ADDE01DBF9F0800D2359B /* FindLocationViewController.swift */,
+				0154D5C41DC04E4C0085211B /* ShareLinkViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -127,6 +130,7 @@
 		011620BF1DBB8455003EE7C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				011620C41DBB9FDF003EE7C0 /* StudentInformation.swift */,
 				011620C61DBBACD0003EE7C0 /* Clients */,
 			);
 			name = Model;
@@ -135,7 +139,6 @@
 		011620C61DBBACD0003EE7C0 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				011620C41DBB9FDF003EE7C0 /* StudentInformation.swift */,
 				011620C81DBBADDC003EE7C0 /* Udacity */,
 				011620C71DBBADD0003EE7C0 /* Parse */,
 			);
@@ -262,6 +265,7 @@
 				011620D01DBC868E003EE7C0 /* UdacityConvenience.swift in Sources */,
 				011620D21DBD05A9003EE7C0 /* UdacityUser.swift in Sources */,
 				011620B71DBB81BC003EE7C0 /* MapViewController.swift in Sources */,
+				0154D5C51DC04E4C0085211B /* ShareLinkViewController.swift in Sources */,
 				011620D41DBDB594003EE7C0 /* ParseConvenience.swift in Sources */,
 				011620B91DBB81E1003EE7C0 /* ListViewController.swift in Sources */,
 				011620CA1DBBBC05003EE7C0 /* ParseClient.swift in Sources */,

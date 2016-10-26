@@ -15,6 +15,7 @@ class MapViewController: UIViewController{
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var refreshButton: UIBarButtonItem!
+    
     var udacityStudents = [StudentInformation]()
     
     // MARK: - Life Cycle
@@ -25,7 +26,9 @@ class MapViewController: UIViewController{
         let parsedStudents = ParseClient.sharedInstance().studentInformations
         
         if parsedStudents.count < 1 {
-            fetchUserInformations()
+            performUIUpdatesOnMain {
+                self.fetchUserInformations()
+            }
         } else {
             performUIUpdatesOnMain {
                 self.udacityStudents = parsedStudents
@@ -34,12 +37,37 @@ class MapViewController: UIViewController{
     }
     
     // MARK: - Actions
-    @IBAction func refreshMap(sender: AnyObject) {
-        fetchUserInformations()
+    @IBAction func refreshMap(sender: AnyObject?) {
+        performUIUpdatesOnMain {
+            self.fetchUserInformations()
+        }
+    }
+    
+    @IBAction func logoutFromUdacity(sender: AnyObject?) {
+        UdacityClient.sharedInstance().deleteUdacitySession() { (success, result, error) in
+            guard (success == true) else {
+                self.presentAlertView(title: "Unable to Logout", message: error?.localizedDescription, actions: [UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)])
+                self.dismiss(animated: true, completion: nil)
+                return
+            }
+        }
+    }
+    
+    @IBAction func addOrOverwriteStudent(sender: AnyObject?) {
+        if studentAlreadyPosted() {
+            let overwriteAction = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.default) {
+                UIAlertAction in
+                self.presentFindLocationVC(isBeingOverwritten: true)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+            presentAlertView(title: "You Have Already Posted a Student Location. Would You Like to Overwrite?", message: nil, actions: [overwriteAction, cancelAction])
+        } else {
+            presentFindLocationVC(isBeingOverwritten: false)
+        }
     }
 }
 
-// MARK: - MKMapViewDelegate
+// MARK: - MKMapView
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -68,7 +96,12 @@ extension MapViewController: MKMapViewDelegate {
             }
         }
     }
-
+    
+    // zoom level settings
+    func setMapRegion(coordinateToZoom: CLLocationCoordinate2D) {
+        let viewRegion = MKCoordinateRegionMakeWithDistance(coordinateToZoom, 300, 300)
+        self.mapView.setRegion(viewRegion, animated: false)
+    }
 }
 
 // MARK: - Convenience Methods
@@ -85,6 +118,27 @@ extension MapViewController {
                 print(error?.localizedDescription)
             }
         }
+    }
+}
+
+// MARK: - Navigation
+
+extension MapViewController {
+    // unwind to MapViewController
+    @IBAction func unwindToMapVC(sender: UIStoryboardSegue) {
+        if let sourceVC = sender.source as? ShareLinkViewController, sourceVC.successfullyPosted == true {
+            performUIUpdatesOnMain {
+                self.fetchUserInformations()
+                self.setMapRegion(coordinateToZoom: sourceVC.coordinate)
+            }
+        }
+    }
+    
+    // present FindLocationVC
+    func presentFindLocationVC(isBeingOverwritten: Bool) {
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "findLocationVC") as! FindLocationViewController
+        controller.isBeingOverwritten = isBeingOverwritten
+        self.present(controller, animated: true, completion: nil)
     }
 }
 
@@ -123,5 +177,29 @@ extension MapViewController {
             }
         }
     }
-
+    
+    // check to see if user already posted a Student Location
+    func studentAlreadyPosted() -> Bool {
+        var studentInfoAlreadyExists: Bool = false
+        for student in ParseClient.sharedInstance().studentInformations {
+            if student.uniqueKey == UdacityClient.sharedInstance().accountID {
+                studentInfoAlreadyExists = true
+                ParseClient.sharedInstance().currentStudentObjectID = student.objectID
+                break
+            }
+        }
+        return studentInfoAlreadyExists
+    }
+    
+    // present alert view
+    func presentAlertView(title: String?, message: String?, actions: [UIAlertAction]?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        if let actions = actions {
+            for action in actions {
+                alert.addAction(action)
+            }
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
 }

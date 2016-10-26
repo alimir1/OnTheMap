@@ -18,6 +18,8 @@ class FindLocationViewController: UIViewController {
     @IBOutlet weak var findOnMapButton: UIButton!
     
     let defaultMapStringTextField = "Enter Your Location Here"
+    var activityIndicatorView: UIActivityIndicatorView!
+    var isBeingOverwritten: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +28,31 @@ class FindLocationViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         
         findOnMapButton.isEnabled = false
+        findOnMapButton.alpha = 0.5
     }
     
     // MARK: - Actions
     
     @IBAction func findLocation(sender: AnyObject? = nil) {
-        forwardGeocoding(address: mapStringTextField.text!)
+        getCoordinateOfMapString(address: mapStringTextField.text!) { (coordinate, error) in
+            func presentError(error: String) {
+                let alert = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+            guard (error == nil) else {
+                presentError(error: (error?.localizedDescription)!)
+                return
+            }
+            
+            if let coordinate = coordinate {
+                self.toShareLinkViewController(coordinate: coordinate)
+            } else {
+                presentError(error: "Could not get the coordinates. Please try again.")
+            }
+            
+        }
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -67,6 +88,7 @@ extension FindLocationViewController: UITextFieldDelegate {
             mapStringTextField.text = defaultMapStringTextField
         } else {
             findOnMapButton.isEnabled = true
+            findOnMapButton.alpha = 1.0
         }
     }
 }
@@ -75,23 +97,43 @@ extension FindLocationViewController: UITextFieldDelegate {
 // MARK: Geocoding
 
 extension FindLocationViewController {
-    func forwardGeocoding(address: String) {
-        CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
+    func getCoordinateOfMapString(address: String, completionHandler: @escaping (_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> Void) {
+        CLGeocoder().geocodeAddressString(address) { (placemarks, error) in
+            
             guard (error == nil) else {
-                print(error)
+                completionHandler(nil, error)
                 return
             }
             
             guard let placemarks = placemarks, placemarks.count > 0 else {
-                print("Couldn't get placemarks")
+                completionHandler(nil, NSError(domain: "forwardGeocoding", code: 0, userInfo: [NSLocalizedDescriptionKey : "Could not find your location."]))
                 return
             }
             
             let placemark = placemarks[0]
             let location = placemark.location
             let coordinate = location?.coordinate
-            print("\nlat: \(coordinate!.latitude), long: \(coordinate!.longitude)")
+            completionHandler(coordinate, nil)
 
-        })
+        }
     }
 }
+
+
+// MARK: Navigation
+extension FindLocationViewController {
+    
+    // transition to ShareLink view controller
+    func toShareLinkViewController(coordinate: CLLocationCoordinate2D) {
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "shareLinkVC") as! ShareLinkViewController
+        controller.coordinate = coordinate
+        controller.mapString = mapStringTextField.text
+        controller.isBeingOverwritten = isBeingOverwritten
+        self.present(controller, animated: false, completion: nil)
+    }
+}
+
+
+
+
+

@@ -12,13 +12,17 @@ class ParseClient: NSObject {
     
     // MARK: Properties
     
+    // enum for httpMethod
+    enum HttpMethod: String {
+        case PUT, POST
+    }
+    
     // shared session
     var session = URLSession.shared
     
     // parse student info.
     var studentInformations = [StudentInformation]()
-    var userStudentInformation: StudentInformation!
-    var uniqueKey: String? = UdacityClient.sharedInstance().accountID
+    var currentStudentObjectID: String?
     
     override init() {
         super.init()
@@ -30,14 +34,13 @@ class ParseClient: NSObject {
         
         // Build the URL, configure the request
         var request = URLRequest(url: ParseURL(parameters: parameters))
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue(ParseClient.Costants.ParseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(ParseClient.Costants.RestApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         print("requestURL in taskForGetMethod: \(request)")
         
         // Make the request
-        let task = session.dataTask(with: request) {
-            (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -70,6 +73,56 @@ class ParseClient: NSObject {
         return task
     }
     
+    // MARK: POST
+    
+    func taskForPostOrPutMethod(httpMethod: HttpMethod, method: String?, parameters: [String : AnyObject]?, jsonBody: String, completionHandler: @escaping (_ results: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
+        
+        /* build url and configure the request */
+        var request = URLRequest(url: ParseURL(parameters: parameters, method: method))
+        request.httpMethod = httpMethod.rawValue
+        request.addValue(ParseClient.Costants.ParseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(ParseClient.Costants.RestApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonBody.data(using: .utf8)
+        
+        print("requestURL for taskForPostMethod: \(request)")
+        
+        // Make the request
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            func sendError(error: String) {
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandler(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            guard  let statusCode = (response as? HTTPURLResponse)?.statusCode, 200...299 ~= statusCode else {
+                sendError(error: "Your request returned a status code other than 2xx! RequestUR: \(request)")
+                return
+            }
+            
+            guard let data = data else {
+                sendError(error: "No data was returned by the request!")
+                return
+            }
+            
+            // Parse the data and use the data (happens in completion handler)
+            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandler)
+        }
+        
+        // Start the request
+        task.resume()
+        
+        return task
+
+    }
+    
+    // MARK: Helpers
+    
     // given raw JSON, return a usable Foundation object
     private func convertDataWithCompletionHandler(data: Data, completionHandlerForConvertData: (_ result : AnyObject?, _ error : Error?) -> Void) {
         
@@ -86,11 +139,11 @@ class ParseClient: NSObject {
     }
     
     // create a URL from parameters
-    func ParseURL(parameters: [String : AnyObject]?) -> URL {
+    func ParseURL(parameters: [String : AnyObject]? = nil, method: String? = nil) -> URL {
         var components = URLComponents()
         components.scheme = ParseClient.Costants.ApiScheme
         components.host = ParseClient.Costants.ApiHost
-        components.path = ParseClient.Costants.ApiPath
+        components.path = ParseClient.Costants.ApiPath + (method ?? "")
         
         if let parameters = parameters {
             components.queryItems = [URLQueryItem]()
@@ -103,7 +156,17 @@ class ParseClient: NSObject {
         return components.url!
     }
     
+    // substitute the key for the value that is contained within the method name
+    func substituteKeyInMethod(method: String, key: String, value: String) -> String? {
+        if method.range(of: "{\(key)}") != nil {
+            return method.replacingOccurrences(of: "{\(key)}", with: value)
+        } else {
+            return nil
+        }
+    }
+    
     // MARK: Shared Instance
+    
     class func sharedInstance() -> ParseClient {
         struct Singleton {
             static var sharedinstance = ParseClient()

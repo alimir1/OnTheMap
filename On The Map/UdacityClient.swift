@@ -23,6 +23,11 @@ class UdacityClient: NSObject {
     var sessionID: String? = nil
     var sessionExpiration: String? = nil
     
+    // httpMethod types
+    enum HttpMethods: String {
+        case POST, DELETE
+    }
+    
     // MARK: Initializers
     
     override init() {
@@ -82,15 +87,28 @@ class UdacityClient: NSObject {
     
     // MARK: POST
     
-    func taskForPOSTMethod(method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTOrDeleteMethod(httpMethod: HttpMethods, method: String, jsonBody: String? = nil, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         // Build the URL, configure the request
         let requestURL = UdacityURL(withPathExtension: method)
         var request = URLRequest(url: requestURL)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonBody.data(using: .utf8)
+        
+        if httpMethod == .POST {
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonBody?.data(using: .utf8)
+        } else if httpMethod == .DELETE {
+            request.httpMethod = "DELETE"
+            var xsrfCookie: HTTPCookie? = nil
+            let sharedCookieStorage = HTTPCookieStorage.shared
+            for cookie in sharedCookieStorage.cookies! {
+                if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+            }
+            if let xsrfCookie = xsrfCookie {
+                request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+            }
+        }
         
         // Make the request
         let task = session.dataTask(with: request) {
@@ -99,7 +117,7 @@ class UdacityClient: NSObject {
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+                completionHandlerForPOST(nil, NSError(domain: "taskForPOSTOrDeleteMethod", code: 1, userInfo: userInfo))
             }
             
             // GUARD: There shouldn't be any request errors
@@ -111,16 +129,7 @@ class UdacityClient: NSObject {
             
             // GUARD: Response status code should be in 2xx range
             guard let responseStatusCode = (response as? HTTPURLResponse)?.statusCode, 200...299 ~= responseStatusCode else {
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                    // FIXME: - Send these errors in UIAlertViewControllers!
-                    if 400...410 ~= statusCode {
-                        // Alert view stating that user's username or password was incorrect.
-                        sendError(error: "Invalid username or password. Status Code: \(statusCode), URL: \(requestURL)")
-                    } else {
-                        // Alert view stating that there was a problem
-                        sendError(error: "Something went wrong! Status Code: \(statusCode), URL: \(requestURL)")
-                    }
-                }
+                sendError(error: "Status Code not in 2xx range: \((response as? HTTPURLResponse)?.statusCode), URL: \(requestURL)")
                 return
             }
             

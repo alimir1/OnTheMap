@@ -202,10 +202,10 @@
             </objects>
             <point key="canvasLocation" x="3770" y="36"/>
         </scene>
-        <!--View Controller-->
+        <!--Share Link View Controller-->
         <scene sceneID="PuL-OJ-cVq">
             <objects>
-                <viewController id="BSh-dL-QAd" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="shareLinkVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BSh-dL-QAd" customClass="ShareLinkViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dNO-hz-MJ1"/>
                         <viewControllerLayoutGuide type="bottom" id="QgQ-X3-uJW"/>
@@ -218,30 +218,45 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3m3-J1-7nb">
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YMB-hf-iYF">
-                                                <frame key="frameInset" minX="8" minY="135" width="398" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YMB-hf-iYF">
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BSh-dL-QAd" id="y7N-3T-fNI"/>
+                                                </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5M-RU-pfA">
                                                 <state key="normal" title="Cancel">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="EGL-B9-Q7f" kind="unwind" unwindAction="unwindToMapVCWithSender:" id="asc-kJ-rY2"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.14901960780000001" green="0.23137254900000001" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="b5M-RU-pfA" firstAttribute="top" secondItem="3m3-J1-7nb" secondAttribute="top" constant="16" id="RRM-Kx-c7h"/>
-                                            <constraint firstItem="b5M-RU-pfA" firstAttribute="trailing" secondItem="YMB-hf-iYF" secondAttribute="trailing" id="Vtt-90-mXx"/>
-                                            <constraint firstItem="b5M-RU-pfA" firstAttribute="trailing" secondItem="3m3-J1-7nb" secondAttribute="trailingMargin" id="e1d-vt-sgM"/>
-                                            <constraint firstItem="YMB-hf-iYF" firstAttribute="top" secondItem="b5M-RU-pfA" secondAttribute="bottom" constant="89" id="k4v-H0-Enp"/>
+                                            <constraint firstAttribute="trailing" secondItem="YMB-hf-iYF" secondAttribute="trailing" constant="8" id="1zI-Zf-wTZ"/>
+                                            <constraint firstItem="YMB-hf-iYF" firstAttribute="centerX" secondItem="3m3-J1-7nb" secondAttribute="centerX" id="BNS-4D-Adp"/>
+                                            <constraint firstItem="b5M-RU-pfA" firstAttribute="top" secondItem="3m3-J1-7nb" secondAttribute="top" constant="16" id="GmA-KM-xz8"/>
+                                            <constraint firstAttribute="bottom" secondItem="YMB-hf-iYF" secondAttribute="bottom" constant="135" id="PUn-pB-fKn"/>
+                                            <constraint firstAttribute="trailing" secondItem="b5M-RU-pfA" secondAttribute="trailing" constant="8" id="Pte-BY-zIb"/>
+                                            <constraint firstItem="YMB-hf-iYF" firstAttribute="leading" secondItem="3m3-J1-7nb" secondAttribute="leading" constant="8" id="SGr-xY-Fl4"/>
+                                            <constraint firstItem="YMB-hf-iYF" firstAttribute="centerY" secondItem="3m3-J1-7nb" secondAttribute="centerY" id="Slt-u9-zYo"/>
+                                            <constraint firstItem="YMB-hf-iYF" firstAttribute="top" secondItem="3m3-J1-7nb" secondAttribute="top" constant="135" id="UNd-I6-j2f"/>
+                                            <constraint firstItem="YMB-hf-iYF" firstAttribute="top" secondItem="b5M-RU-pfA" secondAttribute="bottom" constant="89" id="dI7-5I-63v"/>
+                                            <constraint firstItem="b5M-RU-pfA" firstAttribute="leading" secondItem="3m3-J1-7nb" secondAttribute="leading" constant="358" id="hpt-H9-Wg7"/>
                                             <constraint firstAttribute="height" constant="300" id="oVU-Oa-aMj"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cty-VP-2rC">
                                         <subviews>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="x9D-6z-csh"/>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="x9D-6z-csh">
+                                                <connections>
+                                                    <outlet property="delegate" destination="BSh-dL-QAd" id="kzV-hQ-4io"/>
+                                                </connections>
+                                            </mapView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhc-Al-eiO">
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -251,6 +266,9 @@
                                                 <state key="normal" title="Submit">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="submitSharedLinkWithSender:" destination="BSh-dL-QAd" eventType="touchUpInside" id="K9C-7M-t4Q"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -274,10 +292,17 @@
                             <constraint firstItem="fg6-Bn-6QZ" firstAttribute="leading" secondItem="BBH-Zz-fZB" secondAttribute="leading" id="sVb-bB-ieF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="enterLinkTextField" destination="YMB-hf-iYF" id="otd-KX-sXJ"/>
+                        <outlet property="mapView" destination="x9D-6z-csh" id="byD-XB-bTr"/>
+                        <outlet property="submitButton" destination="hhc-Al-eiO" id="d0D-of-0NM"/>
+                        <segue destination="EGL-B9-Q7f" kind="unwind" identifier="unwindToMapsVC" unwindAction="unwindToMapVCWithSender:" id="RDY-bY-E5e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fpV-6Q-glq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="EGL-B9-Q7f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4726" y="36"/>
+            <point key="canvasLocation" x="4483" y="36"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="qgn-9V-a95">
@@ -299,7 +324,12 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CXT-0p-xhr">
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qWH-5M-yyz"/>
-                                    <barButtonItem title="Logout" id="gOx-7O-0YK"/>
+                                    <barButtonItem title="Logout" id="gOx-7O-0YK">
+                                        <color key="tintColor" red="1" green="0.12841629060000001" blue="0.15970916060000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="logoutFromUdacityWithSender:" destination="Que-Bn-0Hv" id="id5-2A-IfE"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Hgn-mb-fGw"/>
                                 </items>
                             </toolbar>
@@ -318,7 +348,7 @@
                     <navigationItem key="navigationItem" title="On The Map" id="UOI-hg-1lF">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="jOZ-mz-qH0">
                             <connections>
-                                <segue destination="3bu-oI-qUo" kind="presentation" id="AKO-Kb-pZQ"/>
+                                <action selector="addOrOverwriteStudentWithSender:" destination="Que-Bn-0Hv" id="t2e-NM-yyx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="N98-uk-H2r">
@@ -397,7 +427,7 @@
                     <navigationItem key="navigationItem" title="On The Map" id="wcr-y7-y1d">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="hRM-nF-a0m">
                             <connections>
-                                <segue destination="3bu-oI-qUo" kind="presentation" id="6fp-uU-fLf"/>
+                                <action selector="addOrOverwriteStudentWithSender:" destination="8K4-XN-GTh" id="chZ-P7-7Cf"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="dfW-xK-JsR">
@@ -453,7 +483,4 @@
             <point key="canvasLocation" x="1848" y="471"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="6fp-uU-fLf"/>
-    </inferredMetricsTieBreakers>
 </document>

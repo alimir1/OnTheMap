@@ -52,7 +52,7 @@ extension UdacityClient {
         let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.Password)\": \"\(password)\"}}"
         
         // Make the request
-        _ = taskForPOSTMethod(method: method, jsonBody: jsonBody) {
+        _ = taskForPOSTOrDeleteMethod(httpMethod: .POST, method: method, jsonBody: jsonBody) {
             (results, error) in
             
             func sendError(errorString: String) {
@@ -80,6 +80,27 @@ extension UdacityClient {
                 completionHandlerForPOSTSession(true, nil)
             } else {
                 sendError(errorString: "Error in getting sessionID, sessionExpiration, userID, or sessionExpiration")
+            }
+        }
+    }
+    
+    // MARK: DELETE Convenience Methods
+    func deleteUdacitySession(completionHandler: @escaping (_ success: Bool, _ result: [String :AnyObject]?, _ error: Error?) -> Void) {
+        
+        // Specify method
+        let method = Methods.AuthenticationSession
+        
+        _ = taskForPOSTOrDeleteMethod(httpMethod: .DELETE, method: method) { (result, error) in
+            guard (error == nil) else {
+                completionHandler(false, nil, error)
+                return
+            }
+            
+            if let result = result as? [String : AnyObject] {
+                completionHandler(true, result, nil)
+            } else {
+                let error = NSError(domain: "deleteUdacitySession", code: 0, userInfo: [NSLocalizedDescriptionKey : "Could not get the result from deleteUdacitySession"])
+                completionHandler(false, nil, error)
             }
         }
     }
