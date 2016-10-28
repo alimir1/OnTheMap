@@ -30,6 +30,5 @@ You will need to register for a Udacity account. Visit http://udacity.com/ to re
 The following is a list of technologies and best practices that I used in creating this app:
 * Using Web Services and APIs
 * Chaining Asynchronous Requests
-* Chaining Asynchronous Requests
 * Incorporate good MVC design
 * Handling network connectivity issues
